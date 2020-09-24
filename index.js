@@ -5,6 +5,8 @@
 // 👇 COMPLETE YOUR WORK BELOW 👇
 */
 
+const { films } = require("./data/fixtures-bundle")
+
 /**
  * ### Challenge `getName`
  * Example ✅
@@ -29,6 +31,8 @@ function getName(character) {
  * Sample data expected output: 5
  */
 function getFilmCount(character) {
+
+  return character.films.length
   // TODO: Add your code inside the functions (others below).
 
 }
@@ -42,6 +46,12 @@ function getFilmCount(character) {
  * If length is 0. Return 'none'
 */
 function getSecondStarshipName(character) {
+  if(character.starships.length >= 2){
+    return character.starships[1].name
+  }
+  else {
+    return 'none'
+  }
   // TODO: Add your code here.
 }
 
@@ -55,6 +65,7 @@ function getSecondStarshipName(character) {
  *    Result: `Luke Skywalker, 172cm, 77kg. Featured in 5 films.`
  */
 function getSummary(character) {
+  return `${character.name}, ${character.height}cm, ${character.mass}kg. Featured in ${character.films.length} films.`
   // TODO: Add your code here.
 }
 
@@ -67,7 +78,11 @@ function getSummary(character) {
  * Sample data expected output: 8000
 */
 function getVehiclesCostInCreditsSumTotal(character) {
+  let total = character.vehicles.reduce((accumulator, vehicle)=> {
+    return accumulator + vehicle.cost_in_credits
+  }, 0)
   // TODO: Add your code here.
+  return total
 }
 
 /**
@@ -81,6 +96,15 @@ function getVehiclesCostInCreditsSumTotal(character) {
  * Sample data expected output: 27
 */
 function getStarshipPassengerAndCrewSumTotal(character) {
+  let passengerTotal = character.starships.reduce((accumulator, starships) => {
+    return accumulator + starships.passengers
+  }, 0)
+
+  let crewTotal = character.starships.reduce((accumulator, starships) => {
+    return accumulator + starships.crew
+  }, 0)
+
+  return passengerTotal + crewTotal
   // TODO: Add your code here.
 }
 
@@ -98,6 +122,12 @@ function getStarshipPassengerAndCrewSumTotal(character) {
  * Given film #7, expected error: `There are only 3 Star Wars movies. Flan fiction excluded.`
 */
 function getNthFilm(character, filmNumber) {
+  if (character.films[filmNumber-1]){
+    return character.films[filmNumber-1]
+  }
+  else {
+    return 'none exist'
+  }
   // TODO: Add your code here.
 }
 
@@ -112,6 +142,25 @@ function getNthFilm(character, filmNumber) {
  * Sample data expected output: 80124
 */
 function getCargoCapacityTotal(character) {
+  let cargoTotal = character.vehicles.reduce ((accumulator, vehicles) => {
+    if(vehicles.cargo_capacity != null){
+      return accumulator + vehicles.cargo_capacity
+    }
+    else {
+      return accumulator + 0
+    }
+  }, 0)
+
+  let starCargoTotal = character.starships.reduce ((accumulator, starships) => {
+    if(starships.cargo_capacity != null){
+      return accumulator + starships.cargo_capacity
+    }
+    else {
+      return accumulator + 0
+    }
+  }, 0)
+
+  return cargoTotal + starCargoTotal 
   // TODO: Add your code here.
 }
 
